@@ -15,10 +15,13 @@
 * -w           : Watch directory for loading files from file system.  Using /fileshare
 
 # Samba File Share
+
+Samba file share on my LAN Linux box.  System is not exposed to the broader internet.
+
 * Shared directory mounted at `/fileshare` with permissions 777.
-* Owned by user/group shop/shop.
-* Windows Domain name is 'workgroup'
-* Samba password is 'shop'
+* Owned by user/group `shop/shop`.
+* Windows Domain name is `workgroup`
+* Samba password is `shop`
 
 # CNCjs Touch Probe Setup
 
