@@ -119,3 +119,13 @@ G4 P1
 
 [UNITS] [DISTANCE] ;restore unit and distance modal state
 ````
+
+# OctoPrint
+
+## Docker Image
+
+>`docker pull octoprint/octoprint`
+
+>`docker run --privileged -p 8080:80 --detach --restart unless-stopped --name octoprint -v /fileshare:/octoprint octoprint/octoprint:latest`
+
+Note: running Octoprint on host port 8080 to leave CNCjs on server port 80.
