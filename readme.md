@@ -1,18 +1,22 @@
 # Building the Docker image
-
-> docker build -t cncjs/cncjs:rebuild .
+````
+docker build -t cncjs/cncjs:rebuild .
+````
 
 # Running the image
 
-> docker run --privileged -p 80:8000 --detach --restart unless-stopped --name cncjs cncjs/cncjs:rebuild /usr/local/bin/cncjs -w /fileshare
+> ⚠️ **See [info on USB device mapping](usb-device-mapping.md) for updates to the `--device` values for uniquely identifying identical USB devices for different containers.**
 
-* --privileged : Access to USB ports
-* --detach     : Spawns the processes
-* -p           : Maps ports `-p <host-port>:<container-port>`
-* --name       : Simple name for the container
-* --restart    " Restarts the container (including on host boot) unless manually stopped.
-* -v           : Map volume `-v <host-dir>:<container-dir>`
-* -w           : Watch directory for loading files from file system.  Using /fileshare
+````
+docker run --device=/dev/USB0:/dev/USB0 -p 80:8000 --detach --restart unless-stopped --name cncjs cncjs/cncjs:rebuild /usr/local/bin/cncjs -w /fileshare
+````
+* `--device`     : Access to specific hardware devices such as USB ports `--device=<host device>:<container device>`
+* `--detach`     : Spawns the processes
+* `-p`           : Maps ports `-p <host-port>:<container-port>`
+* `--name`       : Simple name for the container
+* `--restart`    " Restarts the container (including on host boot) unless manually stopped.
+* `-v`           : Map volume `-v <host-dir>:<container-dir>`
+* `-w`           : Watch directory for loading files from file system.  Using /fileshare
 
 # Samba File Share
 
@@ -123,9 +127,14 @@ G4 P1
 # OctoPrint
 
 ## Docker Image
+````
+docker pull octoprint/octoprint
+````
 
->`docker pull octoprint/octoprint`
+⚠️See CNCjs section above for more information about mapping specific USB devices.
 
->`docker run --privileged -p 8080:80 --detach --restart unless-stopped --name octoprint -v /fileshare:/octoprint octoprint/octoprint:latest`
+````
+docker run --device=/dev/USB0:/dev/USB0 -p 8080:80 --detach --restart unless-stopped --name octoprint -v /fileshare:/octoprint octoprint/octoprint:latest
+````
 
 Note: running Octoprint on host port 8080 to leave CNCjs on server port 80.
