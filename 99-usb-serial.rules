@@ -1,0 +1,3 @@
+KERNEL=="ttyUSB*",KERNELS=="1-1.2.3",SYMLINK+="ttyCNC"
+KERNEL=="ttyUSB*",KERNELS=="1-1.2.1",SYMLINK+="tty3D-Printer"
+
