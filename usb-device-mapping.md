@@ -82,7 +82,7 @@ touch /etc/udev/rules.d/99-usb-serial.rules
 * Add the line for the new device name by USB path
 ````
 KERNEL=="ttyUSB*", KERNELS==""1-1.2.3", NAME="ttyCNC"
-KERNEL=="ttyUSB*", KERNELS==""1-1.2.3", NAME="tty3D-Printer"
+KERNEL=="ttyUSB*", KERNELS==""1-1.2.1", NAME="tty3D-Printer"
 ````
 [`udev` rules file](99-usb-serial.rules)
 
