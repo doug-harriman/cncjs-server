@@ -3,7 +3,7 @@
 docker build -t cncjs/cncjs:rebuild .
 ````
 
-# Running the image
+# Running the Image
 
 > ⚠️ **See [info on USB device mapping](usb-device-mapping.md) for updates to the `--device` values for uniquely identifying identical USB devices for different containers.**
 
@@ -17,6 +17,27 @@ docker run --device=/dev/USB0:/dev/USB0 -p 80:8000 --detach --restart unless-sto
 * `--restart`    " Restarts the container (including on host boot) unless manually stopped.
 * `-v`           : Map volume `-v <host-dir>:<container-dir>`
 * `-w`           : Watch directory for loading files from file system.  Using /fileshare
+
+## Docker Quick Help
+
+Given that we've named our image "cncjs" per the `--name` command above:
+
+* Stop a the container (without removing it)
+````
+docker container stop cncjs
+````
+* Restart the container
+````
+docker container restart cncjs
+````
+* Remove the container so that we can recreate it with different parameters
+````
+docker container rm cncjs
+````
+* Log in to the currently running container
+````
+docker exec -it cncjs /bin/bash
+````
 
 # Samba File Share
 
