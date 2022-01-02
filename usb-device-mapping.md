@@ -68,3 +68,15 @@ The relevant portion of the returned information is:
     ATTRS{bConfigurationValue}=="1"
 ````
 We'll focus on the `KERNEL` and `KERNELS` information.
+
+## UDEV Rules
+
+# Test
+
+Reload the `udev` rules, then trigger the system to rerun them.
+
+````
+udevadm control --reload
+udevadm trigger
+````
+
