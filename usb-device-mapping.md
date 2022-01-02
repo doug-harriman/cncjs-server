@@ -95,3 +95,20 @@ udevadm control --reload
 udevadm trigger
 ````
 
+## Docker Device Access
+
+To provide Docker access to the new name of the USB device, we must update the mapping from the host PC hardware device to the Docker hardware device.  Note that Docker is not able to resolve symlinks on the host.  Therefore, we need to resolve the symlink mapping when we start the Docker Container.
+
+The updated Docker commands below use `readlink` to resolve the symlink to the `udev` device symlinks as defined above.
+
+* For CNCjs:
+````
+docker run --device=/dev/`readlink /dev/ttyCNC`:/dev/ttyUSB0 -p 80:8000 --detach --restart unless-stopped --name cncjs c
+ncjs/cncjs:rebuild /usr/local/bin/cncjs -w /fileshare
+````
+
+* For Octoprint:
+````
+docker run --device=/dev/`readlink /dev/tty3D-Printer`:/dev/ttyUSB0 -p 8080:80 --detach --restart unless-stopped --name octoprint -v /fileshare:/octoprint octoprint/octoprint:latest
+````
+
