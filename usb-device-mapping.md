@@ -20,6 +20,7 @@
 3. Allow the Docker container to have access to only the USB device that it needs.
 
 This solution is based on information found from:
+* https://unix.stackexchange.com/questions/66901/how-to-bind-usb-device-under-a-static-name
 * https://askubuntu.com/questions/49910/how-to-distinguish-between-identical-usb-to-serial-adapters
 * http://www.reactivated.net/writing_udev_rules.html
 
@@ -70,6 +71,17 @@ The relevant portion of the returned information is:
 We'll focus on the `KERNEL` and `KERNELS` information.
 
 ## UDEV Rules
+Note: the following commands require `root` or `sudo` privileges.
+
+* Create a file to store the rules:
+````
+touch /etc/udev/rules.d/99-usb-serial.rules
+````
+* Add the line for the new device name by USB path
+````
+KERNEL=="ttyUSB*", KERNELS==""1-1.4.4:1.0", NAME="ttyCNC"
+````
+
 
 # Test
 
