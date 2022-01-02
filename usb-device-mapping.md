@@ -37,38 +37,40 @@ udevadm info -a -p $(udevadm info -q path -n /dev/ttyUSB0)
 
 The relevant portion of the returned information is:
 ````
-  looking at device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.4/1-1.4.4/1-1.4.4:1.0/ttyUSB0/tty/ttyUSB0':
+  looking at device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.2/1-1.2.3/1-1.2.3:1.0/ttyUSB0/tty/ttyUSB0':
     KERNEL=="ttyUSB0"
     SUBSYSTEM=="tty"
     DRIVER==""
 
-  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.4/1-1.4.4/1-1.4.4:1.0/ttyUSB0':
+  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.2/1-1.2.3/1-1.2.3:1.0/ttyUSB0':
     KERNELS=="ttyUSB0"
     SUBSYSTEMS=="usb-serial"
     DRIVERS=="ch341-uart"
     ATTRS{port_number}=="0"
 
-  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.4/1-1.4.4/1-1.4.4:1.0':
-    KERNELS=="1-1.4.4:1.0"
+  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.2/1-1.2.3/1-1.2.3:1.0':
+    KERNELS=="1-1.2.3:1.0"
     SUBSYSTEMS=="usb"
     DRIVERS=="ch341"
     ATTRS{bNumEndpoints}=="03"
-    ATTRS{bAlternateSetting}==" 0"
-    ATTRS{bInterfaceProtocol}=="02"
-    ATTRS{bInterfaceClass}=="ff"
-    ATTRS{supports_autosuspend}=="1"
-    ATTRS{authorized}=="1"
     ATTRS{bInterfaceSubClass}=="01"
+    ATTRS{authorized}=="1"
+    ATTRS{bInterfaceClass}=="ff"
+    ATTRS{bAlternateSetting}==" 0"
+    ATTRS{supports_autosuspend}=="1"
     ATTRS{bInterfaceNumber}=="00"
+    ATTRS{bInterfaceProtocol}=="02"
 
-  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.4/1-1.4.4':
-    KERNELS=="1-1.4.4"
+  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-1/1-1.2/1-1.2.3':
+    KERNELS=="1-1.2.3"
     SUBSYSTEMS=="usb"
     DRIVERS=="usb"
-    ATTRS{busnum}=="1"
-    ATTRS{bConfigurationValue}=="1"
 ````
 We'll focus on the `KERNEL` and `KERNELS` information.
+
+In particular, the last `KERNELS` value shown (without the `:1.0`) is the USB port address for the hardware.  
+
+After capturing that info for our first device, we plug in the second device and capture its `KERNELs` port value also.
 
 ## UDEV Rules
 Note: the following commands require `root` or `sudo` privileges.
@@ -79,11 +81,11 @@ touch /etc/udev/rules.d/99-usb-serial.rules
 ````
 * Add the line for the new device name by USB path
 ````
-KERNEL=="ttyUSB*", KERNELS==""1-1.4.4:1.0", NAME="ttyCNC"
+KERNEL=="ttyUSB*", KERNELS==""1-1.2.3", NAME="ttyCNC"
+KERNEL=="ttyUSB*", KERNELS==""1-1.2.3", NAME="tty3D-Printer"
 ````
 
-
-# Test
+### Test
 
 Reload the `udev` rules, then trigger the system to rerun them.
 
