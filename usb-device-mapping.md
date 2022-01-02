@@ -84,6 +84,7 @@ touch /etc/udev/rules.d/99-usb-serial.rules
 KERNEL=="ttyUSB*", KERNELS==""1-1.2.3", NAME="ttyCNC"
 KERNEL=="ttyUSB*", KERNELS==""1-1.2.3", NAME="tty3D-Printer"
 ````
+[`udev` rules file](99-usb-serial.rules)
 
 ### Test
 
