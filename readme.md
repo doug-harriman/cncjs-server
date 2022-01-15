@@ -18,7 +18,23 @@ docker run --device=/dev/USB0:/dev/USB0 -p 80:8000 --detach --restart unless-sto
 * `-v`           : Map volume `-v <host-dir>:<container-dir>`
 * `-w`           : Watch directory for loading files from file system.  Using /fileshare
 
-## Docker Quick Help
+# OctoPrint
+
+## Docker Image
+````
+docker pull octoprint/octoprint
+````
+
+⚠️See CNCjs section above for more information about mapping specific USB devices.
+
+````
+docker run --device=/dev/USB0:/dev/USB0 -p 8080:80 --detach --restart unless-stopped --name octoprint -v /fileshare:/octoprint octoprint/octoprint:latest
+````
+
+Note: running Octoprint on host port 8080 to leave CNCjs on server port 80.
+
+
+# Docker Quick Help
 
 Given that we've named our image "cncjs" per the `--name` command above:
 
@@ -145,17 +161,3 @@ G4 P1
 [UNITS] [DISTANCE] ;restore unit and distance modal state
 ````
 
-# OctoPrint
-
-## Docker Image
-````
-docker pull octoprint/octoprint
-````
-
-⚠️See CNCjs section above for more information about mapping specific USB devices.
-
-````
-docker run --device=/dev/USB0:/dev/USB0 -p 8080:80 --detach --restart unless-stopped --name octoprint -v /fileshare:/octoprint octoprint/octoprint:latest
-````
-
-Note: running Octoprint on host port 8080 to leave CNCjs on server port 80.
