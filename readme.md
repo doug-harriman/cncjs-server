@@ -33,6 +33,16 @@ docker run --device=/dev/USB0:/dev/USB0 -p 8080:80 --detach --restart unless-sto
 
 Note: running Octoprint on host port 8080 to leave CNCjs on server port 80.
 
+## Webcam Streaming
+
+* Octoprint doesn't directly support video cameras.  It provides videos through a web cam stream.  Have to install a separate web server for the video stream.
+* Installed the video stream server on the base machine for simplicity.
+* [ustreamer](https://github.com/pikvm/ustreamer) is a lightweight video streamer.  
+  * Compiled from source, but was simple.  
+  * After compile, did a `make install` to install for others.
+  * Set up a system service to start web cam streaming on boot per: https://github.com/pikvm/ustreamer/issues/16
+ * Started service on port `8083` to avoid conficts with CNCjs & Octoprint.
+ * Configured Octoprint's webcam to point at `http://shop:8083/stream`
 
 # Docker Quick Help
 
