@@ -3,17 +3,12 @@
 docker pull cncjs/cncjs:latest
 ````
 
-# Building the Docker image
-````
-docker build -t cncjs/cncjs:rebuild .
-````
-
 # Running the Image
 
 > ⚠️ **See [info on USB device mapping](usb-device-mapping.md) for updates to the `--device` values for uniquely identifying identical USB devices for different containers.**
 
 ````
-docker run --device=/dev/USB0:/dev/USB0 -p 80:8000 --detach --restart unless-stopped --name cncjs cncjs/cncjs:rebuild /usr/local/bin/cncjs -w /fileshare
+docker run --device=/dev/USB0:/dev/USB0 -p 80:8000 --detach --restart unless-stopped --name cncjs cncjs/cncjs:latest /usr/local/bin/cncjs -w /fileshare
 ````
 * `--device`     : Access to specific hardware devices such as USB ports `--device=<host device>:<container device>`
 * `--detach`     : Spawns the processes
