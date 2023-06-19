@@ -98,12 +98,12 @@ For 3-Axis probe hardware.
 ; Set user-defined variables
 %Z_PROBE_THICKNESS = 6.38	;thickness of Z probe plate
 %PROBE_DISTANCE = 20  ;Max distance for a probe motion
-%PROBE_FEEDRATE_A = 50
-%PROBE_FEEDRATE_B = 20
-%PROBE_MAJOR_RETRACT = 5  ;distance of retract before probing opposite side
-%Z_PROBE = 4	; Lift out of hole and Max Z probe
-%Z_PROBE_KEEPOUT = 2 ;distance (X&Y) from edge of hole for Z probe 
-%Z_FINAL = 1 ;final height above probe
+%PROBE_FEEDRATE_A = 250
+%PROBE_FEEDRATE_B = 30
+%PROBE_MAJOR_RETRACT = 1  ;distance of retract before probing opposite side
+%Z_PROBE = 6	; Lift out of hole and Max Z probe
+%Z_PROBE_KEEPOUT = 5 ;distance (X&Y) from edge of hole for Z probe 
+%Z_FINAL = 3 ;final height above probe
 
 
 %UNITS=modal.units
@@ -115,14 +115,14 @@ G21 ;Use millimeters
 
 ; Probe toward right side of hole with a maximum probe distance
 G38.2 X[PROBE_DISTANCE] F[PROBE_FEEDRATE_A]
-G0 X-2 ;retract 2mm
+G0 X-1 ;retract
 G38.2 X5 F[PROBE_FEEDRATE_B] ;Slow Probe
 %X_RIGHT = posx
 G0 X-[PROBE_MAJOR_RETRACT]	;retract
 
 ; Probe toward Left side of hole with a maximum probe distance
 G38.2 X-[PROBE_DISTANCE] F[PROBE_FEEDRATE_A]
-G0 X2 ;retract 2mm
+G0 X1 ;retract
 G38.2 X-5 F[PROBE_FEEDRATE_B] ;Slow Probe
 %X_LEFT = posx
 %X_CHORD = X_RIGHT - X_LEFT
@@ -134,13 +134,13 @@ G10L20X0
 
 ; Probe toward top side of hole with a maximum probe distance
 G38.2 Y[PROBE_DISTANCE] F[PROBE_FEEDRATE_A]
-G0 Y-2 ;retract 2mm
+G0 Y-1 ;retract
 G38.2 Y5 F[PROBE_FEEDRATE_B] ;Slow Probe
 %Y_TOP = posy
 G0 Y-[PROBE_MAJOR_RETRACT]	;retract
 ; Probe toward bottom side of hole with a maximum probe distance
 G38.2 Y-[PROBE_DISTANCE] F[PROBE_FEEDRATE_A]
-G0 Y2 ;retract 2mm
+G0 Y1 ;retract 2mm
 G38.2 Y-5 F[PROBE_FEEDRATE_B] ;Slow Probe
 %Y_BTM = posy
 %Y_CHORD = Y_TOP - Y_BTM
@@ -159,7 +159,7 @@ G4 P2
 
 ; Probe Z
 G38.2 Z-[Z_PROBE+6] F[PROBE_FEEDRATE_A]
-G0 Z2 ;retract 2mm
+G0 Z1 ;retract 
 G38.2 Z-5 F[PROBE_FEEDRATE_B] ;Slow Probe
 G10L20Z[Z_PROBE_THICKNESS]
 G0 Z[Z_FINAL]	;raise Z
