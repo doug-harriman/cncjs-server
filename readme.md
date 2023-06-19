@@ -1,3 +1,8 @@
+# Get the Docker image
+````
+docker pull cncjs/cncjs:latest
+````
+
 # Building the Docker image
 ````
 docker build -t cncjs/cncjs:rebuild .
