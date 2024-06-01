@@ -57,6 +57,9 @@ docker run --detach --restart unless-stopped --name spoolman -p 7912:8000 -v <pa
 man ghcr.io/donkie/spoolman
 ```
 
+* Install the OctoPrint SpoolMan plugin.  See: https://github.com/mdziekon/octoprint-spoolman
+
+
 ## Webcam Streaming
 
 * Octoprint doesn't directly support video cameras.  It provides videos through a web cam stream.  Have to install a separate web server for the video stream.
