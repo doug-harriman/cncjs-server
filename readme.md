@@ -33,6 +33,30 @@ docker run --device=/dev/USB0:/dev/USB0 -p 8080:80 --detach --restart unless-sto
 
 Note: running Octoprint on host port 8080 to leave CNCjs on server port 80.
 
+## Spool Manager
+
+* [SpoolMan](https://github.com/Donkie/Spoolman/) filament spool manager.
+
+* Get latest Docker image:
+```
+docker pull ghcr.io/donkie/spoolman:latest
+```
+
+* Set up local directory for data storage (uses SQLite database):
+
+```
+cd <parent dir for data dir>
+mkdir Spoolman-Data
+chown 1000:1000 Spoolman-Data
+```
+
+* Start Docker container:
+
+```
+docker run --detach --restart unless-stopped --name spoolman -p 7912:8000 -v <parent dir>/Spoolman-Data/:/home/app/.local/share/spool
+man ghcr.io/donkie/spoolman
+```
+
 ## Webcam Streaming
 
 * Octoprint doesn't directly support video cameras.  It provides videos through a web cam stream.  Have to install a separate web server for the video stream.
